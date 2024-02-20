@@ -25,13 +25,32 @@ public class JavaParserExceptionHandler {
 
 
 	@ExceptionHandler(PomParserException.class)
-	public ResponseEntity pomParserExceptionHandler(MethodArgumentNotValidException exp, WebRequest request) {
+	public ResponseEntity pomParserExceptionHandler(PomParserException exp, WebRequest request) {
 		ErrorDetailResponse errorResponse = new ErrorDetailResponse();
 		exp.getBindingResult().getAllErrors().forEach((n) -> errorResponse.setMessage(n.getDefaultMessage()));
 		errorResponse.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
 		errorResponse.setHandler(request.getDescription(false));
 		return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(NoDataFoundException.class)
+	public ResponseEntity noDataFoundExceptionHandler(NoDataFoundException exp, WebRequest request) {
+		ErrorDetailResponse errorResponse = new ErrorDetailResponse();
+		exp.getBindingResult().getAllErrors().forEach((n) -> errorResponse.setMessage(n.getDefaultMessage()));
+		errorResponse.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
+		errorResponse.setHandler(request.getDescription(false));
+		return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(NoFileFoundException.class)
+	public ResponseEntity noFileFoundExceptionHandler(NoFileFoundException exp, WebRequest request) {
+		ErrorDetailResponse errorResponse = new ErrorDetailResponse();
+		exp.getBindingResult().getAllErrors().forEach((n) -> errorResponse.setMessage(n.getDefaultMessage()));
+		errorResponse.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
+		errorResponse.setHandler(request.getDescription(false));
+		return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
+	}
+
 
 
 	@ExceptionHandler(Exception.class)
